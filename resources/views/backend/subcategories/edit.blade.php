@@ -12,7 +12,7 @@
                     <h2 class="auth-heading text-center mb-5">Edit Sub Category</h2>
                     <div class="auth-form-container text-start">
                         <form class="auth-form login-form"
-                            action="{{ route('admin.subcat.update', ['subcategory' => $subcategory->slug]) }}"
+                            action="{{ route('patbd.subcat.update', ['subcategory' => $subcategory->slug]) }}"
                             method="POST">
                             @method('put')
                             @csrf

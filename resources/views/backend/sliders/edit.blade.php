@@ -11,7 +11,7 @@
                 <div class="app-auth-body ">
                     <h2 class="auth-heading text-center mb-5">Update slider Details</h2>
                     <div class="auth-form-container text-start">
-                        <form class="auth-form login-form" action="{{ route('admin.slider.update', ['slider' => $slider->id]) }}"
+                        <form class="auth-form login-form" action="{{ route('patbd.slider.update', ['slider' => $slider->id]) }}"
                             method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('put')

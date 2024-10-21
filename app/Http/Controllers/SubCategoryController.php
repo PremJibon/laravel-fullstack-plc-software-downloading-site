@@ -32,7 +32,7 @@ class SubCategoryController extends Controller
         $subcategory->name = $request->name;
         $subcategory->slug = slugify($request->name, 'sub_categories');
         $subcategory->save();
-        return redirect()->route('admin.subcat.index')->with('success', 'SubCategory saved!');
+        return redirect()->route('patbd.subcat.index')->with('success', 'SubCategory saved!');
     }
 
     public function show(SubCategory $subcategory)
@@ -58,12 +58,12 @@ class SubCategoryController extends Controller
         $subcategory->slug = slugify($request->name, 'sub_categories');
 
         $subcategory->save();
-        return redirect()->route('admin.subcat.index')->with('success', 'SubCategory updated!');
+        return redirect()->route('patbd.subcat.index')->with('success', 'SubCategory updated!');
     }
 
     public function destroy(SubCategory $subcategory)
     {
         $subcategory->delete();
-        return redirect()->route('admin.subcat.index')->with('success', 'SubCategory deleted!');
+        return redirect()->route('patbd.subcat.index')->with('success', 'SubCategory deleted!');
     }
 }

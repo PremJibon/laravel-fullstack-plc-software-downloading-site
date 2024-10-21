@@ -86,10 +86,11 @@
             margin-bottom: 28px !important;
             margin-top: 18px !important;
         }
+        
     </style>
+     
 
-    <!-- bootstrap css  -->
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
+ 
 
     <!--Card Sections-->
     <div class="col-md-9 pe-4">
@@ -181,7 +182,7 @@
                             <div class="notched-outline">
                                 <div class="leading"></div>
                                 <div class="notch">
-                                    <div class="label">Mobile number</div>
+                                    <div class="label">Mobile Number ( WhatsApp Rec )</div>
                                 </div>
                                 <div class="trailing"></div>
                             </div>
@@ -338,7 +339,7 @@
 
     <!-- vue js codes -->
     @vite([ 'resources/js/app.js' ])
-
+    
     <!-- jquery js  -->
     <script type="text/javascript" src="/js/jquery-3.7.1.min.js"></script>
     <!-- intlTelInput js  -->

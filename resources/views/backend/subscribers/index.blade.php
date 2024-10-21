@@ -1,5 +1,12 @@
 @extends('backend.layouts.app')
 
+@php
+
+//var_dump($subscribers);
+//return;
+
+@endphp
+
 @section('content')
     <div class="container-xl">
 
@@ -11,11 +18,11 @@
                 <div class="page-utilities">
                     <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
                         <div class="col-auto">
-                            <a href="{{ route('admin.subscriber.download') }}" class="btn btn-success text-white">Download
+                            <a  id="downloadBtn" href="{{ route('patbd.subscriber.download') }}" class="btn btn-success text-white">Download
                                 as TXT</a>
                         </div>
                         {{-- <div class="col-auto">
-                            <a class="btn app-btn-primary" href="{{ route('admin.subscriber.create') }}">
+                            <a class="btn app-btn-primary" href="{{ route('patbd.subscriber.create') }}">
                                 <i class="bi bi-plus-square"></i>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                     class="bi bi-plus-square me-1" viewBox="0 0 16 16">
@@ -44,58 +51,54 @@
             <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
                 <div class="app-card app-card-orders-table shadow-sm mb-5">
                     <div class="app-card-body">
-                        <div class="table-responsive p-3">
                         <div id="filters">
                                 <label for="dateRange">Date Range:</label>
                                 <select id="dateRange">
-                                    <option value="">All</option>
-                                    <option value="daily">Daily</option>
-                                    <option value="weekly">Weekly</option>
-                                    <option value="monthly">Monthly</option>
-                                    <option value="yearly">Yearly</option>
+                                    <option value="" >All</option>
+                                    <option value="daily" {{  $dateRange == 'daily' ? 'selected': ''; }}>Daily</option>
+                                    <option value="weekly" {{  $dateRange == 'weekly' ? 'selected': ''; }}>Weekly</option>
+                                    <option value="monthly" {{  $dateRange == 'monthly' ? 'selected': ''; }}>Monthly</option>
+                                    <option value="yearly" {{  $dateRange == 'yearly' ? 'selected': ''; }}>Yearly</option>
                                 </select>
                             </div>
-                            <table id="table_id" class="display">
+                            <div class="table-responsive">
+                            <table id="table_id" class="table app-table-hover mb-0 text-left">
                                 <thead>
                                     <tr>
-                                        <th class="cell">ID</th>
-                                        <th class="cell">Email</th>
-                                        <th class="cell">Added date</th>
-                                        <th class="cell">Action</th>
+                                        <th>ID</th>
+                                        <th>Email</th>
+                                        <th>Added date</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <!-- @foreach ($subscribers as $subscriber)
+                                    @foreach ($subscribers as $subscriber)
                                         <tr>
                                             <td class="cell">{{ $subscriber->id }}</td>
                                             <td class="cell"><span>{{ $subscriber->email }}</span></td>
+                                            <td class="cell"><span>{{ $subscriber->created_at }}</span></td>
+                                            <td class="cell">
+                                                <form id="deleteSubscriberForm_{{ $subscriber->id }}" action="{{ route('patbd.subscriber.destroy', ['subscriber' => $subscriber->id]) }}"
+                                                    class="d-inline-block" method="POST">
+                                                    @method('delete')
+                                                    @csrf
+                                                    <button type="submit" onclick="deleteSubscriber({{ $subscriber->id }}); return false;" class="btn app-btn-danger">Delete</button>
+                                                </form>
+                                            </td>
                                             
                                         </tr>
-                                    @endforeach -->
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div><!--//table-responsive-->
 
                     </div><!--//app-card-body-->
                 </div><!--//app-card-->
-                <!-- <nav class="app-pagination">
+                <nav class="app-pagination">
                     <div class="mx-auto">
                         {{ $subscribers->links() }}
                     </div>
-                    {{-- <ul class="pagination justify-content-center">
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                        </li>
-                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">Next</a>
-                        </li>
-                    </ul> --}}
-
-
-                </nav>//app-pagination -->
+                </nav>
 
             </div><!--//tab-pane-->
         </div><!--//tab-content-->
@@ -109,46 +112,55 @@
 
 @section('custom_script')
 
-    <!-- datatable js  -->
-    <script src="/js/dataTables.js"></script>
-
     <script>
+            // for date range filter
+            $('#dateRange').change(function(e) {
+                e.preventDefault();
+                // Get the filter values
+                var dateRange = $('#dateRange').val();
+                
+                
+                // Construct the download URL with filters as query parameters
+                var downloadUrl = "{{ route('patbd.subscriber.index') }}?dateRange=" + dateRange; 
+                // var downloadUrl = "{{ route('patbd.user.index') }}?page={{ Request::get('page') }}&dateRange=" + dateRange + "&country=" + country;
+
+                // Redirect to the download URL
+                window.location.href = downloadUrl;
+            });
+
+            // download filter for date range
+             
+            $(document).ready(function () {
+                $('#downloadBtn').click(function (e) {
+                    e.preventDefault();
+                    
+                    // Get the filter values
+                    var dateRange = $('#dateRange').val();
+                  
+                    
+                    // Construct the download URL with filters as query parameters
+                    var downloadUrl = "{{ route('patbd.subscriber.download') }}";
+                    downloadUrl += '?dateRange=' + dateRange;
+
+                    // Redirect to the download URL
+                    window.location.href = downloadUrl;
+                });
+            });
+
+
+
+
+
 
         // Define deleteSubscriber function in the global scope
         function deleteSubscriber(subscriberId) {
 
-        var csrfToken = $('meta[name="csrf-token"]').attr('content');
-
-        if (confirm("are you sure you want to delete this subscriber?") == true) {
-
-            $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'), // For CSRF protection
-                'Authorization': 'Bearer ' + csrfToken // Include the token in the Authorization header
+            if(confirm('are you sure?') == true){
+                document.getElementById( 'deleteSubscriberForm_' + subscriberId ).submit();
+            }else{
+                return false;
             }
-        });
-
-            $.ajax({
-                url: "/api/delete_subscriber/" + subscriberId, // Replace with your API endpoint
-                method: "DELETE", // Use "DELETE" method for deletion
-                contentType: "application/json",
-                success: function(response) {
-                    // Handle the successful response from the API here
-                    if(response.success === true){
-                        alert('Subscriber deleted successfully!');
-                        // Optionally, you can refresh the table or remove the deleted row from the UI
-                        $('#table_id').DataTable().ajax.reload();
-                    }
-                },
-                error: function(xhr, status, error) {
-                    alert('Something went wrong!');
-                }
-            });
-
-        } else {
-            console.log("nothing to do");
         }
-    }
 
 
 
@@ -156,46 +168,9 @@
 
             var csrfToken = $('meta[name="csrf-token"]').attr('content');
 
-            var table = $('#table_id').DataTable({
-                ajax: {
-                    url: 'http://localhost:8000/api/get_subscribers',
-                    dataSrc: '',
-                    beforeSend: function (xhr) {
-                        xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
-                    }
-                },
-                columns: [
-                    { data: 'id' },
-                    { data: 'email' },
-                    {
-                        data: 'created_at',
-                        render: function (data, type, row) {
-                            var date = new Date(data);
-                            var options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
-                            return date.toLocaleDateString('en-US', options);
-                            //return data;
-                        }
-                    },
-                    {
-                        data: 'action',
-                        render: function (data, type, row) {
-                            return '<span onclick="deleteSubscriber('+ row.id + ')" style="cursor: pointer">Delete</span>';
-                        }
-                    },
-                    { 
-                        data: 'created_at', 
-                        visible: false  // Hide the original date column
-                    }
-                
-                ],
-                order: [[0, 'desc']]  // Default sort by the first column (id) in descending order
-            });
-
-            // Custom filtering function
-            $.fn.dataTable.ext.search.push(
-                function(settings, data, dataIndex) {
-                    
-                    var dateRange = $('#dateRange').val();
+            // Event listeners for the filters
+            $('#dateRange').change(function() {
+                var dateRange = $('#dateRange').val();
                     var createdAt = new Date(data[4]); // Assuming 'created_at' is the 6th column
 
                     if (dateRange) {
@@ -225,16 +200,9 @@
                     }
 
                     return true;
-                }
-            );
-
-            // Event listeners for the filters
-            $('#dateRange').change(function() {
-                table.draw();
             });
-
-
         });
+
     </script>
 
 @endsection

@@ -2,7 +2,7 @@
     <ul class="app-menu list-unstyled accordion" id="menu-accordion">
         <li class="nav-item">
             <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-            <a class="nav-link active" href="{{ route('admin.index') }}">
+            <a class="nav-link active" href="{{ route('patbd.index') }}">
                 <span class="nav-icon">
                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-house-door" fill="currentColor"
                         xmlns="http://www.w3.org/2000/svg">
@@ -40,21 +40,21 @@
             </a><!--//nav-link-->
             <div id="submenu-1" class="collapse submenu submenu-1" data-bs-parent="#menu-accordion">
                 <ul class="submenu-list list-unstyled">
-                    <li class="submenu-item"><a class="submenu-link" href="{{ route('admin.blog.index') }}">All
+                    <li class="submenu-item"><a class="submenu-link" href="{{ route('patbd.blog.index') }}">All
                             Blogs</a></li>
-                    <li class="submenu-item"><a class="submenu-link" href="{{ route('admin.categories.index') }}">All
+                    <li class="submenu-item"><a class="submenu-link" href="{{ route('patbd.categories.index') }}">All
                             Categories</a></li>
-                    <li class="submenu-item"><a class="submenu-link" href="{{ route('admin.subcat.index') }}">All Sub
+                    <li class="submenu-item"><a class="submenu-link" href="{{ route('patbd.subcat.index') }}">All Sub
                             Categories</a>
                     </li>
-                    <li class="submenu-item"><a class="submenu-link" href="{{ route('admin.tag.index') }}">All Tags</a>
+                    <li class="submenu-item"><a class="submenu-link" href="{{ route('patbd.tag.index') }}">All Tags</a>
                     </li>
                 </ul>
             </div>
         </li><!--//nav-item-->
         <li class="nav-item">
             <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-            <a class="nav-link" href="{{ route('admin.user.index') }}">
+            <a class="nav-link" href="{{ route('patbd.user.index') }}">
                 <span class="nav-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-person-bounding-box" viewBox="0 0 16 16">
@@ -68,7 +68,7 @@
         </li><!--//nav-item-->
         <li class="nav-item">
             <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-            <a class="nav-link" href="{{ route('admin.subscriber.index') }}">
+            <a class="nav-link" href="{{ route('patbd.subscriber.index') }}">
                 <span class="nav-icon">
                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-card-list" fill="currentColor"
                         xmlns="http://www.w3.org/2000/svg">
@@ -87,7 +87,7 @@
 
         <li class="nav-item">
             <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-            <a class="nav-link" href="{{ route('admin.mails.index') }}">
+            <a class="nav-link" href="{{ route('patbd.mails.index') }}">
                 <span class="nav-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-envelope-fill" viewBox="0 0 16 16">
@@ -101,7 +101,7 @@
 
         <li class="nav-item">
             <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-            <a class="nav-link" href="{{ route('admin.mails.selectedMail') }}">
+            <a class="nav-link" href="{{ route('patbd.mails.selectedMail') }}">
                 <span class="nav-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-envelope-fill" viewBox="0 0 16 16">
@@ -112,10 +112,39 @@
                 <span class="nav-link-text">Send Email</span>
             </a><!--//nav-link-->
         </li><!--//nav-item-->
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('patbd.emailservers.index') }}">
+                <span class="nav-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-mailbox" viewBox="0 0 16 16">
+                    <path d="M4 4a3 3 0 0 0-3 3v6h6V7a3 3 0 0 0-3-3m0-1h8a4 4 0 0 1 4 4v6a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V7a4 4 0 0 1 4-4m2.646 1A4 4 0 0 1 8 7v6h7V7a3 3 0 0 0-3-3z"/>
+                    <path d="M11.793 8.5H9v-1h5a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.354-.146zM5 7c0 .552-.448 0-1 0s-1 .552-1 0a1 1 0 0 1 2 0"/>
+                </svg>
+                </span>
+                <span class="nav-link-text">Email Servers</span>
+            </a><!--//nav-link-->
+        </li><!--//nav-item-->
+
+
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('patbd.blog.gallery') }}">
+                <span class="nav-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-images" viewBox="0 0 128 128">
+                        <path d="M114 15.25H14A9.761 9.761 0 0 0 4.25 25v77A10.762 10.762 0 0 0 15 112.75h98A10.762 10.762 0 0 0 123.75 102V25a9.761 9.761 0 0 0-9.75-9.75zm6.25 9.75v11.683H52.888L61.37 18.75H114a6.257 6.257 0 0 1 6.25 6.25zM14 18.75h43.5l-8.484 17.933H7.75V25A6.257 6.257 0 0 1 14 18.75zm99 90.5H15A7.258 7.258 0 0 1 7.75 102V40.183h112.5V102a7.258 7.258 0 0 1-7.25 7.25z"/>
+                        <path d="M21.57 33.466a5.75 5.75 0 1 0-5.75-5.75 5.756 5.756 0 0 0 5.75 5.75zm0-8a2.25 2.25 0 1 1-2.25 2.25 2.253 2.253 0 0 1 2.25-2.25zM37.626 33.466a5.75 5.75 0 1 0-5.75-5.75 5.756 5.756 0 0 0 5.75 5.75zm0-8a2.25 2.25 0 1 1-2.25 2.25 2.253 2.253 0 0 1 2.25-2.25zM67.522 29.466h44.745a1.75 1.75 0 0 0 0-3.5H67.522a1.75 1.75 0 0 0 0 3.5zM110.5 48.966h-93a1.75 1.75 0 0 0-1.75 1.75v37a1.749 1.749 0 0 0 1.75 1.75h93a1.736 1.736 0 0 0 .377-.043c.032-.007.062-.021.094-.03a1.687 1.687 0 0 0 .259-.091c.04-.019.078-.042.116-.063a1.645 1.645 0 0 0 .206-.133 1.84 1.84 0 0 0 .109-.089 1.806 1.806 0 0 0 .181-.19c.018-.022.042-.039.059-.062s.014-.025.022-.037a1.839 1.839 0 0 0 .1-.16c.026-.047.055-.093.076-.141a1.427 1.427 0 0 0 .055-.155 1.554 1.554 0 0 0 .054-.172c.01-.047.014-.1.021-.145a1.693 1.693 0 0 0 .02-.2V50.716a1.75 1.75 0 0 0-1.749-1.75zm-1.75 3.5v31.755L82.2 64.35a1.753 1.753 0 0 0-2.009-.062L62.909 75.627l-15.64-15.484a1.75 1.75 0 0 0-2.128-.26L19.25 75.33V52.466zm-35.4 33.5-7.9-7.822 15.638-10.256 24.153 18.079zm-54.1-6.561 26.52-15.821 22.608 22.383H19.25zM106.223 96.967H21.777a1.75 1.75 0 0 0 0 3.5h84.446a1.75 1.75 0 0 0 0-3.5z"/>
+                        <path d="M96.509 67.282a5.9 5.9 0 1 0-5.9-5.9 5.9 5.9 0 0 0 5.9 5.9zm0-8.293a2.4 2.4 0 1 1-2.4 2.4 2.4 2.4 0 0 1 2.4-2.4z"/>
+                    </svg>
+                </span>
+                <span class="nav-link-text">Gallery</span>
+            </a><!--//nav-link-->
+        </li><!--//nav-item-->
+        
+        
+        
+        
 
         <li class="nav-item">
             <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-            <a class="nav-link" href="{{ route('admin.social.index') }}">
+            <a class="nav-link" href="{{ route('patbd.social.index') }}">
                 <span class="nav-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-hash" viewBox="0 0 16 16">
@@ -129,15 +158,12 @@
 
         <li class="nav-item">
             <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-            <a class="nav-link" href="{{ route('admin.reviews.index') }}">
+            <a class="nav-link" href="{{ route('patbd.reviews.index') }}">
                 <span class="nav-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-right-text" viewBox="0 0 16 16">
                         <path d="M2 1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h9.586a2 2 0 0 1 1.414.586l2 2V2a1 1 0 0 0-1-1zm12-1a2 2 0 0 1 2 2v12.793a.5.5 0 0 1-.854.353l-2.853-2.853a1 1 0 0 0-.707-.293H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z"/>
                         <path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6m0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5"/>
                     </svg>
-                    <!-- <svg fill="currentColor" width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M10.3 6.74a.75.75 0 01-.04 1.06l-2.908 2.7 2.908 2.7a.75.75 0 11-1.02 1.1l-3.5-3.25a.75.75 0 010-1.1l3.5-3.25a.75.75 0 011.06.04zm3.44 1.06a.75.75 0 111.02-1.1l3.5 3.25a.75.75 0 010 1.1l-3.5 3.25a.75.75 0 11-1.02-1.1l2.908-2.7-2.908-2.7z"/><path fill-rule="evenodd" d="M1.5 4.25c0-.966.784-1.75 1.75-1.75h17.5c.966 0 1.75.784 1.75 1.75v12.5a1.75 1.75 0 01-1.75 1.75h-9.69l-3.573 3.573A1.457 1.457 0 015 21.043V18.5H3.25a1.75 1.75 0 01-1.75-1.75V4.25zM3.25 4a.25.25 0 00-.25.25v12.5c0 .138.112.25.25.25h2.5a.75.75 0 01.75.75v3.19l3.72-3.72a.75.75 0 01.53-.22h10a.25.25 0 00.25-.25V4.25a.25.25 0 00-.25-.25H3.25z"/>
-                    </svg> -->
                 </span>
                 <span class="nav-link-text">Reviews</span>
             </a><!--//nav-link-->

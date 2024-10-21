@@ -14,6 +14,7 @@ use App\Http\Controllers\SubscriberController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\EmailserverController;
 use Illuminate\Support\Facades\Route;
 //use Illuminate\Support\Facades\Hash;
 
@@ -30,14 +31,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/admin/login', [AdminController::class, 'login_view'])->name('admin.login');
-Route::post('/admin/login', [AdminController::class, 'loginPost'])->name('admin.login.post');
+Route::get('/patbd/login', [AdminController::class, 'login_view'])->name('patbd.login');
+Route::post('/patbd/login', [AdminController::class, 'loginPost'])->name('patbd.login.post');
 
 
-Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
-Route::get('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
+Route::get('/patbd', [AdminController::class, 'index'])->name('patbd.index');
+Route::get('/patbd/logout', [AdminController::class, 'logout'])->name('patbd.logout');
 
-Route::prefix('/admin')->middleware('auth:admin')->name('admin.')->group(function () {
+Route::prefix('/patbd')->middleware('auth:patbd')->name('patbd.')->group(function () {
 
     Route::prefix('/settings')->controller(BusinessSettingController::class)->name('settings.')->group(function () {
         Route::get('/general', 'general')->name('general');
@@ -91,6 +92,13 @@ Route::prefix('/admin')->middleware('auth:admin')->name('admin.')->group(functio
         Route::get('/search', 'search')->name('search');
     });
 
+    Route::prefix('/blog')->controller(BlogController::class)->name('blog.')->group(function () {
+        Route::get('/gallery', 'gallery')->name('gallery');
+        Route::post('/imgUpload', 'upload')->name('imgUpload');
+        Route::delete('/deleteImage/{image}', 'deleteImage')->name('deleteImage'); // Added delete route
+    });
+    
+
     Route::post('/ckeditor/upload', [AdminController::class, 'ckeditorUpload'])->name('ckeditor.upload');
 
     Route::prefix('/user')->controller(UserController::class)->name('user.')->group(function () {
@@ -106,6 +114,7 @@ Route::prefix('/admin')->middleware('auth:admin')->name('admin.')->group(functio
     Route::prefix('/subscriber')->controller(SubscriberController::class)->name('subscriber.')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/{subscriber}/show', 'show')->name('show');
+        Route::get('/{subscriber}/show', 'store')->name('store');
         Route::delete('/{subscriber}', 'destroy')->name('destroy');
         Route::get('/search', 'search')->name('search');
         Route::get('/download', 'download')->name('download');
@@ -164,6 +173,16 @@ Route::prefix('/admin')->middleware('auth:admin')->name('admin.')->group(functio
         Route::delete('/{review:id}', 'destroy')->name('destroy');
         // Route::get('/search', 'search')->name('search');
     });
+    Route::prefix('/emailservers')->controller(EmailserverController::class)->name('emailservers.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/create', 'create')->name('create');
+        Route::post('/', 'store')->name('store');
+        Route::get('/{emailserver:id}/edit', 'edit')->name('edit');
+        Route::post('/{emailserver:id}', 'update')->name('update');
+        Route::delete('/{emailserver:id}', 'destroy')->name('destroy');
+        // Route::get('/search', 'search')->name('search');
+    });
+
 
 
 });
@@ -189,7 +208,7 @@ Route::post('/login', [HomeController::class, 'loginPost'])->name('user.login.po
 Route::get('/logout', [HomeController::class, 'logout'])->name('user.logout');
 
 // all users route 
-Route::get('/allUsers', [HomeController::class, 'allUsers'])->name('user.allUsers');
+Route::get('/allClients', [HomeController::class, 'allClients'])->name('user.allClients');
 
 // Route::get('/test-r', function(){
 //     return Hash::make('lFaneNoYxDSQ');

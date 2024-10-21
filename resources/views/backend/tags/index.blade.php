@@ -33,7 +33,7 @@
                             </select>
                         </div>
                         <div class="col-auto">
-                            <a class="btn app-btn-primary" href="{{ route('admin.tag.create') }}">
+                            <a class="btn app-btn-primary" href="{{ route('patbd.tag.create') }}">
                                 <i class="bi bi-plus-square"></i>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                     class="bi bi-plus-square me-1" viewBox="0 0 16 16">
@@ -81,8 +81,8 @@
                                             <td class="cell">
                                                 {{-- <a class="btn-sm app-btn-secondary" href="#">View</a> --}}
                                                 <a class="btn app-btn-info"
-                                                    href="{{ route('admin.tag.edit', ['tag' => $tag->slug]) }}">Edit</a>
-                                                <form action="{{ route('admin.tag.destroy', ['tag' => $tag->slug]) }}"
+                                                    href="{{ route('patbd.tag.edit', ['tag' => $tag->slug]) }}">Edit</a>
+                                                <form action="{{ route('patbd.tag.destroy', ['tag' => $tag->slug]) }}"
                                                     class="d-inline-block" method="post">
                                                     @method('delete')
                                                     @csrf

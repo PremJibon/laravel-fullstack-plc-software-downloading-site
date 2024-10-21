@@ -163,7 +163,7 @@
                     </table>
 
                     <div class="text-center">
-                        <a href="{{ route('user.allUsers') }}">
+                        <a href="{{ route('user.allClients') }}">
                             <button class="btn btn-lg btn-success">View All</button>
                         </a>
                     </div>

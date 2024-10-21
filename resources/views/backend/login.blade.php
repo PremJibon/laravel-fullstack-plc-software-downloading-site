@@ -31,7 +31,7 @@
                     </div>
                     <h2 class="auth-heading text-center mb-5">Log in to Portal</h2>
                     <div class="auth-form-container text-start">
-                        <form class="auth-form login-form" action="{{ route('admin.login.post') }}" method="POST">
+                        <form class="auth-form login-form" action="{{ route('patbd.login.post') }}" method="POST">
                             @csrf
                             <div class="email mb-3">
                                 <label class="sr-only" for="signin-email">Email</label>

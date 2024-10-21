@@ -36,7 +36,7 @@ class SliderController extends Controller
         $slider->image = uploadImage($request->image);
         $slider->save();
 
-        return redirect()->route('admin.slider.index')
+        return redirect()->route('patbd.slider.index')
                         ->with('success','Slider created successfully.');
     }
 
@@ -71,7 +71,7 @@ class SliderController extends Controller
 
         $slider->save();
 
-        return redirect()->route('admin.slider.index')
+        return redirect()->route('patbd.slider.index')
                         ->with('success','Slider updated successfully');
     }
 
@@ -80,7 +80,7 @@ class SliderController extends Controller
     {
         $slider->delete();
 
-        return redirect()->route('admin.slider.index')
+        return redirect()->route('patbd.slider.index')
                         ->with('success','Slider deleted successfully');
     }
 }

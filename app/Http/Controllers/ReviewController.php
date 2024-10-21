@@ -48,7 +48,7 @@ class ReviewController extends Controller
         $review->approved = $request->approved;
 
         $review->save();
-        return redirect()->route('admin.reviews.index')->with('success', 'Review saved!');
+        return redirect()->route('patbd.reviews.index')->with('success', 'Review saved!');
     }
 
     /**
@@ -89,7 +89,7 @@ class ReviewController extends Controller
         $review->approved = $request->approved;
 
         $review->save();
-        return redirect()->route('admin.reviews.index')->with('success', 'Review updated!');
+        return redirect()->route('patbd.reviews.index')->with('success', 'Review updated!');
     }
 
     /**
@@ -98,7 +98,7 @@ class ReviewController extends Controller
     public function destroy(Review $review)
     {
         $review->delete();
-        return redirect()->route('admin.reviews.index')->with('success', 'Review deleted!');
+        return redirect()->route('patbd.reviews.index')->with('success', 'Review deleted!');
     }
 
 
@@ -123,7 +123,7 @@ class ReviewController extends Controller
 
         $result = $review->save();
         if($result){
-            return 'Review saved! An admin will approve it later!';
+            return 'Review saved! An patbd will approve it later!';
         }else{
             return 'Review could not be saved! Please Contact us!';
         }

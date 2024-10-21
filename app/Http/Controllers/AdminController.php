@@ -17,8 +17,8 @@ class AdminController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:admin')->only('index', 'logout', 'passwordReset');
-        $this->middleware('guest:admin')->only('login_view', 'loginPost');
+        $this->middleware('auth:patbd')->only('index', 'logout', 'passwordReset');
+        $this->middleware('guest:patbd')->only('login_view', 'loginPost');
     }
 
     public function index()
@@ -42,9 +42,9 @@ class AdminController extends Controller
             'password' => 'required',
         ]);
 
-        if (Auth::guard('admin')->attempt($credentials)) {
+        if (Auth::guard('patbd')->attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->route('admin.index');
+            return redirect()->route('patbd.index');
         }
 
         return redirect()->back()->with('error', 'Login Faild. Please check your email and password');
@@ -52,33 +52,33 @@ class AdminController extends Controller
 
     public function logout(Request $request)
     {
-        Auth::guard('admin')->logout();
+        Auth::guard('patbd')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('admin.login');
+        return redirect()->route('patbd.login');
     }
 
     public function passwordReset(){
-        $admin = auth('admin')->user();
-        return view('backend.passwordReset', compact('admin'));
+        $patbd = auth('patbd')->user();
+        return view('backend.passwordReset', compact('patbd'));
     }
 
     public function updatePassword() {
-        $adminCred = auth('admin')->user();
-        $admin = Admin::where('email', $adminCred->email)->first();
-        if($admin) {
+        $adminCred = auth('patbd')->user();
+        $patbd = Admin::where('email', $adminCred->email)->first();
+        if($patbd) {
             $newPassword = $this->randomPassword();
-            $admin->password = Hash::make($newPassword);
-            if($admin->save()) {
+            $patbd->password = Hash::make($newPassword);
+            if($patbd->save()) {
                 // Send an email with new password.
-                Mail::to('munna.batbd@gmail.com')->send(new PasswordResetEmail($admin->name, $admin->email, $newPassword));
+                Mail::to('munna.batbd@gmail.com')->send(new PasswordResetEmail($patbd->name, $patbd->email, $newPassword));
 
                 // Log the user out
-                Auth::guard('admin')->logout();
+                Auth::guard('patbd')->logout();
 
                 // Redirect to login page
-                return redirect()->route('admin.login')->with('success', 'Your New Password has been sent to your email.');
+                return redirect()->route('patbd.login')->with('success', 'Your New Password has been sent to your email.');
             }
         }
     }

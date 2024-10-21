@@ -6,6 +6,7 @@ use App\Models\Blog;
 use App\Models\SubCategory;
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class BlogController extends Controller
 {
@@ -15,6 +16,59 @@ class BlogController extends Controller
         return view('backend.blogs.index', compact('blogs'));
     }
 
+    public function gallery()
+    {
+        // Paginate blogs specifically for gallery view
+        $blogs = Blog::whereNotNull('image') // Ensures that only blogs with images are included
+            ->paginate(8);
+            $uploadedImages = collect(\File::files(storage_path('app/public/galleryupload')))->map(function ($file) {
+                return $file->getFilename();
+            });
+            
+        return view('backend.blogs.gallery',[
+            'blogs' => $blogs,
+            'uploadedImages' => $uploadedImages,
+        ]);
+    }
+    public function upload(Request $request)
+    {
+        // Validate the request to ensure 'image' is present and valid
+        $request->validate([
+            'image' => 'required|file|mimes:jpeg,png,jpg,gif,webp|max:2048', // Adjust file types and size limit as needed
+        ]);
+        
+        // Generate a unique filename with the original extension
+        $fileName = time() . '.' . $request->file('image')->getClientOriginalExtension();
+        
+        // Store the image in the 'public/galleryupload' directory (this will store in storage/app/public/galleryupload)
+        $path = $request->file('image')->storeAs('galleryupload', $fileName, 'public');
+        
+        // Fetch blogs for the gallery
+        $blogs = Blog::whereNotNull('image')->paginate(8);
+        
+        // Get all uploaded images from the galleryupload directory
+        $uploadedImages = collect(\File::files(storage_path('app/public/galleryupload')))->map(function ($file) {
+            return $file->getFilename();
+        });
+        
+        // Return the view and pass the blogs data and uploaded images
+        return redirect()->route('patbd.blog.gallery')->with('success', 'Image uploaded successfully.');
+    }
+    public function deleteImage($image)
+    {
+        $imagePath = 'public/galleryupload/' . $image;
+
+        if (Storage::exists($imagePath)) {
+            Storage::delete($imagePath);
+            return redirect()->route('patbd.blog.gallery')->with('success', 'Image deleted successfully.');
+        }
+
+        return redirect()->route('patbd.blog.gallery')->with('error', 'Image not found.');
+    }
+    
+
+    
+    
     public function create()
     {
         $subCategories = SubCategory::all();
@@ -49,7 +103,7 @@ class BlogController extends Controller
 
         $blog->save();
         $blog->tags()->attach($request->tags);
-        return redirect()->route('admin.blog.index')->with('success', 'Blog saved!');
+        return redirect()->route('patbd.blog.index')->with('success', 'Blog saved!');
     }
 
     public function show(Blog $blog)
@@ -101,7 +155,7 @@ class BlogController extends Controller
 
         $blog->save();
         $blog->tags()->sync($request->tags);
-        return redirect()->route('admin.blog.index')->with('success', 'Blog updated!');
+        return redirect()->route('patbd.blog.index')->with('success', 'Blog updated!');
     }
 
     public function destroy(Blog $blog)
@@ -109,7 +163,7 @@ class BlogController extends Controller
         deleteImage($blog->image);
         $blog->tags()->detach();
         $blog->delete();
-        return redirect()->route('admin.blog.index')->with('success', 'Blog deleted!');
+        return redirect()->route('patbd.blog.index')->with('success', 'Blog deleted!');
     }
 
     // A Method to Search Blogs for Admin

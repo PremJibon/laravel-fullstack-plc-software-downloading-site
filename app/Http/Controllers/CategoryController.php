@@ -31,7 +31,7 @@ class CategoryController extends Controller
             'slug' => $slug
         ]);
         $category->save();
-        return redirect()->route('admin.categories.index')->with('success', 'Category saved!');
+        return redirect()->route('patbd.categories.index')->with('success', 'Category saved!');
     }
 
     public function show($slug)
@@ -53,12 +53,12 @@ class CategoryController extends Controller
         $category->name = $request->get('name');
         $category->slug = slugify($request->get('name'), 'categories');
         $category->save();
-        return redirect()->route('admin.categories.index')->with('success', 'Category updated!');
+        return redirect()->route('patbd.categories.index')->with('success', 'Category updated!');
     }
 
     public function destroy(Category $category)
     {
         $category->delete();
-        return redirect()->route('admin.categories.index')->with('success', 'Category deleted!');
+        return redirect()->route('patbd.categories.index')->with('success', 'Category deleted!');
     }
 }

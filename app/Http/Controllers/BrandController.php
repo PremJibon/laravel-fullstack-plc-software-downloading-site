@@ -33,7 +33,7 @@ class BrandController extends Controller
         $brand->image = uploadImage($request->image);
         $brand->save();
 
-        return redirect()->route('admin.brand.index')
+        return redirect()->route('patbd.brand.index')
                         ->with('success','Brand created successfully.');
     }
 
@@ -66,7 +66,7 @@ class BrandController extends Controller
 
         $brand->save();
 
-        return redirect()->route('admin.brand.index')
+        return redirect()->route('patbd.brand.index')
                         ->with('success','Brand updated successfully');
     }
 
@@ -75,7 +75,7 @@ class BrandController extends Controller
     {
         $brand->delete();
 
-        return redirect()->route('admin.brand.index')
+        return redirect()->route('patbd.brand.index')
                         ->with('success','Brand deleted successfully');
     }
 }

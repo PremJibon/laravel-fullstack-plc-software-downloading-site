@@ -25,6 +25,6 @@ class SocialLinksController extends Controller
         $social_link->url = $request->url;
         $social_link->isActive = $request->has('isActive');
         $social_link->save();
-        return redirect()->route('admin.social.index')->with(['success' => 'Your Social Link has been updated']);
+        return redirect()->route('patbd.social.index')->with(['success' => 'Your Social Link has been updated']);
     }
 }

@@ -13,6 +13,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="shortcut icon" href="/img/{{ get_settings('app_icon') }}">
 
+    
+
     <!-- FontAwesome JS-->
     <script defer src="/backend/assets/plugins/fontawesome/js/all.min.js"></script>
 
@@ -83,13 +85,81 @@
         .create(document.querySelector('.ckeditor'),
         {
             ckfinder:{
-                uploadUrl: "{{ route('admin.ckeditor.upload', ['_token' => csrf_token()]) }}",
+                uploadUrl: "{{ route('patbd.ckeditor.upload', ['_token' => csrf_token()]) }}",
             }
         })
         .catch(error => {
             console.error(error);
         }); */
     </script>
+    
+    <style>
+        .contact-container {
+            position: relative;
+            display: inline-block;
+        }
+    
+        .contact-options {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: white;
+            border: 1px solid #ccc;
+            z-index: 1;
+            white-space: nowrap;
+        }
+    
+        .contact-options a {
+            display: block;
+            padding: 8px;
+            text-decoration: none;
+            color: black;
+            transition: background-color 0.3s;
+        }
+    
+        .contact-options a:hover {
+            background-color: #f0f0f0;
+        }
+    
+        .contact-container:hover .contact-options {
+            display: block;
+        }
+    
+        .contact-link {
+            text-decoration: none;
+            color: blue;
+        }
+    
+        .contact-link:hover {
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+
+        /* gallery photo size */
+        .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(33%, 1fr)); /* Adjust the column size */
+    grid-gap: 16px;
+}
+
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: auto;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+    </style>
     @hasSection('custom_script')
         @yield('custom_script')
     @endif

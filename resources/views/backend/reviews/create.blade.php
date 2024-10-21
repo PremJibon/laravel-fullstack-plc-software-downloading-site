@@ -11,7 +11,7 @@
                 <div class="app-auth-body ">
                     <h2 class="auth-heading text-center mb-5">Create Review</h2>
                     <div class="auth-form-container text-start">
-                        <form class="auth-form login-form" action="{{ route('admin.reviews.store') }}" method="POST" enctype="multipart/form-data">
+                        <form class="auth-form login-form" action="{{ route('patbd.reviews.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3">
                             <label class="mb-2" for="blog_id">Select Blog</label>

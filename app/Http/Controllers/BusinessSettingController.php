@@ -32,7 +32,7 @@ class BusinessSettingController extends Controller
             $setting->save();
         }
 
-        return redirect()->route('admin.settings.general')->with('success', "App Name Has Been Updated");
+        return redirect()->route('patbd.settings.general')->with('success', "App Name Has Been Updated");
     }
 
     // Set App Logo
@@ -55,7 +55,7 @@ class BusinessSettingController extends Controller
             $setting->save();
         }
 
-        return redirect()->route('admin.settings.general')->with('success', "App Logo Has Been Updated");
+        return redirect()->route('patbd.settings.general')->with('success', "App Logo Has Been Updated");
     }
 
     // Set App Logo
@@ -78,7 +78,7 @@ class BusinessSettingController extends Controller
             $setting->save();
         }
 
-        return redirect()->route('admin.settings.general')->with('success', "App Logo Has Been Updated");
+        return redirect()->route('patbd.settings.general')->with('success', "App Logo Has Been Updated");
     }
 
     // Set Meta Description
@@ -100,7 +100,7 @@ class BusinessSettingController extends Controller
             $setting->save();
         }
 
-        return redirect()->route('admin.settings.general')->with('success', "Meta Description Has Been Updated");
+        return redirect()->route('patbd.settings.general')->with('success', "Meta Description Has Been Updated");
     }
 
     // Set Meta Description
@@ -122,7 +122,7 @@ class BusinessSettingController extends Controller
             $setting->save();
         }
 
-        return redirect()->route('admin.settings.general')->with('success', "Meta Description Has Been Updated");
+        return redirect()->route('patbd.settings.general')->with('success', "Meta Description Has Been Updated");
     }
 
     // Set Whatsapp Number
@@ -144,6 +144,6 @@ class BusinessSettingController extends Controller
             $setting->save();
         }
 
-        return redirect()->route('admin.settings.general')->with('success', "Whatsapp Number Has Been Updated");
+        return redirect()->route('patbd.settings.general')->with('success', "Whatsapp Number Has Been Updated");
     }
 }

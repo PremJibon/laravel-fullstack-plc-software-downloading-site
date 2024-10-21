@@ -28,7 +28,7 @@ class TagController extends Controller
         $tag->name = $request->name;
         $tag->slug = slugify($request->name, 'tags');
         $tag->save();
-        return redirect()->route('admin.tag.index')->with('success', 'Tag saved!');
+        return redirect()->route('patbd.tag.index')->with('success', 'Tag saved!');
     }
 
     public function show(Tag $tag)
@@ -49,12 +49,12 @@ class TagController extends Controller
         $tag->name = $request->name;
         $tag->slug = slugify($request->name, 'tags');
         $tag->save();
-        return redirect()->route('admin.tag.index')->with('success', 'Tag updated!');
+        return redirect()->route('patbd.tag.index')->with('success', 'Tag updated!');
     }
 
     public function destroy(Tag $tag)
     {
         $tag->delete();
-        return redirect()->route('admin.tag.index')->with('success', 'Tag deleted!');
+        return redirect()->route('patbd.tag.index')->with('success', 'Tag deleted!');
     }
 }

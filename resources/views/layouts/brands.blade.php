@@ -10,7 +10,7 @@
 
 
 <div class="col-12 rounded">
-    <h2 class="text-center">OUR BRANDS:</h2>
+  
     <div class="slider">
         <!-- <div class="logos">
             @php
@@ -55,7 +55,7 @@
         autoplayTimeout: 3000,
         autoplaySpeed: 3000,
         dots: false,
-        margin: 10,
+       
         responsive:{
             0:{
                 items:1

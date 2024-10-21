@@ -22288,7 +22288,7 @@ hammer:
   label: Hammer
   search:
     terms:
-      - admin
+      - patbd
       - fix
       - hammer
       - recovery
@@ -28444,7 +28444,7 @@ lock:
   label: Lock
   search:
     terms:
-      - admin
+      - patbd
       - closed
       - lock
       - locked
@@ -28479,7 +28479,7 @@ lock-open:
   label: Lock Open
   search:
     terms:
-      - admin
+      - patbd
       - lock
       - open
       - password
@@ -38531,7 +38531,7 @@ screwdriver:
   label: Screwdriver
   search:
     terms:
-      - admin
+      - patbd
       - fix
       - mechanic
       - repair
@@ -38565,7 +38565,7 @@ screwdriver-wrench:
   label: Screwdriver Wrench
   search:
     terms:
-      - admin
+      - patbd
       - fix
       - repair
       - screwdriver
@@ -45419,7 +45419,7 @@ toolbox:
   label: Toolbox
   search:
     terms:
-      - admin
+      - patbd
       - chest
       - container
       - fix
@@ -47087,7 +47087,7 @@ unlock:
   label: Unlock
   search:
     terms:
-      - admin
+      - patbd
       - lock
       - open
       - password
@@ -47122,7 +47122,7 @@ unlock-keyhole:
   label: Unlock Keyhole
   search:
     terms:
-      - admin
+      - patbd
       - lock
       - password
       - private

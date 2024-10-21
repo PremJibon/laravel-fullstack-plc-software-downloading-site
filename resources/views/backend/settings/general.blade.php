@@ -23,7 +23,7 @@
                 <div class="app-card app-card-settings shadow-sm p-4">
 
                     <div class="app-card-body">
-                        <form class="settings-form" method="POST" action="{{ route('admin.settings.app_name.set') }}">
+                        <form class="settings-form" method="POST" action="{{ route('patbd.settings.app_name.set') }}">
                             @csrf
                             <div class="mb-3">
                                 <label for="appName" class="form-label">App Name</label>
@@ -48,7 +48,7 @@
                 <div class="app-card app-card-settings shadow-sm p-4">
 
                     <div class="app-card-body">
-                        <form class="settings-form" method="POST" action="{{ route('admin.settings.app_logo.set') }}"
+                        <form class="settings-form" method="POST" action="{{ route('patbd.settings.app_logo.set') }}"
                             enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3">
@@ -75,7 +75,7 @@
                 <div class="app-card app-card-settings shadow-sm p-4">
 
                     <div class="app-card-body">
-                        <form class="settings-form" method="POST" action="{{ route('admin.settings.app_icon.set') }}"
+                        <form class="settings-form" method="POST" action="{{ route('patbd.settings.app_icon.set') }}"
                             enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3">
@@ -93,7 +93,7 @@
         </div><!--//row-->
         <hr class="my-4">
 
-        <div class="row g-4 settings-section">
+        {{-- <div class="row g-4 settings-section">
             <div class="col-12 col-md-4">
                 <h3 class="section-title">Meta Description</h3>
                 <div class="section-intro">Provide Your Meta Descriptions.</div>
@@ -103,7 +103,7 @@
 
                     <div class="app-card-body">
                         <form class="settings-form" method="POST"
-                            action="{{ route('admin.settings.meta_description.set') }}">
+                            action="{{ route('patbd.settings.meta_description.set') }}">
                             @csrf
                             <div class="mb-3">
                                 <label for="meta_description" class="form-label">Meta Description</label>
@@ -117,8 +117,8 @@
 
                 </div><!--//app-card-->
             </div>
-        </div><!--//row-->
-        <hr class="my-4">
+        </div><!--//row--> --}}
+        {{-- <hr class="my-4"> --}}
 
         <div class="row g-4 settings-section">
             <div class="col-12 col-md-4">
@@ -129,7 +129,7 @@
                 <div class="app-card app-card-settings shadow-sm p-4">
 
                     <div class="app-card-body">
-                        <form class="settings-form" method="POST" action="{{ route('admin.settings.meta_tags.set') }}">
+                        <form class="settings-form" method="POST" action="{{ route('patbd.settings.meta_tags.set') }}">
                             @csrf
                             <div class="mb-3">
                                 <label for="meta_tags" class="form-label">Meta Tags <span class="text-warning">(Please
@@ -157,7 +157,7 @@
                 <div class="app-card app-card-settings shadow-sm p-4">
 
                     <div class="app-card-body">
-                        <form class="settings-form" method="POST" action="{{ route('admin.settings.whatsapp.set') }}">
+                        <form class="settings-form" method="POST" action="{{ route('patbd.settings.whatsapp.set') }}">
                             @csrf
                             <div class="mb-3">
                                 <label for="whatsapp" class="form-label">Whats App Number</label>

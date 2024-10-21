@@ -12,12 +12,52 @@ class UserController extends Controller
 {
 
 
-    public function index()
+    public function index(Request $request)
     {
-        //$users = User::paginate(25);
-        //return view('backend.users.index', compact('users'));
-        $users = User::orderBy('id', 'desc')->get();
-        return view('backend.users.index', compact('users'));
+
+        $all_users = User::all();
+        $all_countries = [];
+        foreach( $all_users as $user_key=>$user){
+            $country_name = $user->country_name;
+            array_push($all_countries, $country_name);
+        }
+
+        // Get the filter values from the request
+        $dateRange = $request->query('dateRange');
+        $country = $request->query('country');
+    
+        // Start building the query
+        $query = User::query();
+    
+        // Apply the date range filter if provided
+        if ($dateRange) {
+            $now = now();
+            switch ($dateRange) {
+                case 'daily':
+                    $query->where('created_at', '>=', $now->subDay());
+                    break;
+                case 'weekly':
+                    $query->where('created_at', '>=', $now->subWeek());
+                    break;
+                case 'monthly':
+                    $query->where('created_at', '>=', $now->subMonth());
+                    break;
+                case 'yearly':
+                    $query->where('created_at', '>=', $now->subYear());
+                    break;
+            }
+        }
+        $query->orderBy('created_at', 'desc');
+    
+        // Apply the country filter if provided
+        if ($country) {
+            $query->where('country_name', $country);
+        }
+
+        // paginate including filters
+        $users = $query->paginate(10)->appends(request()->query());
+
+        return view('backend.users.index', compact('users', 'all_countries', 'dateRange', 'country'));
     }
 
     public function show()
@@ -30,9 +70,12 @@ class UserController extends Controller
     /** A Method to Download The List of Users as txt file
      * @return response
      */
-    public function download()
-    {
-        // $subscribers = User::all()->pluck('email')->toArray();
+
+      
+        public function download(Request $request)
+        {
+
+            // $subscribers = User::all()->pluck('email')->toArray();
         // $file_name = 'users.txt';
         // $destinationPath = public_path('downloads');
 
@@ -48,17 +91,52 @@ class UserController extends Controller
 
         // return response()->download($destinationPath . "/" . $file_name);
 
-        $users = User::all()->pluck('email')->toArray();
-
-        $disk = Storage::disk('local'); // Specify disk (change to relevant disk if needed)
-        $storagePath = storage_path('app'); // Get the path to storage folder
-        $contents = implode("\n", $users); // Create string with emails separated by newlines
-
-        $disk->put('users.txt', $contents); // Use putFile() for file-like object
-
-        return response()->download($storagePath . '/users.txt', 'users.txt');
-    }
-
+            // Get the filter values from the request
+            $dateRange = $request->query('dateRange');
+            $country = $request->query('country');
+        
+            // Start building the query
+            $query = User::query();
+        
+            // Apply the date range filter if provided
+            if ($dateRange) {
+                $now = now();
+                switch ($dateRange) {
+                    case 'daily':
+                        $query->where('created_at', '>=', $now->subDay());
+                        break;
+                    case 'weekly':
+                        $query->where('created_at', '>=', $now->subWeek());
+                        break;
+                    case 'monthly':
+                        $query->where('created_at', '>=', $now->subMonth());
+                        break;
+                    case 'yearly':
+                        $query->where('created_at', '>=', $now->subYear());
+                        break;
+                }
+            }
+        
+            // Apply the country filter if provided
+            if ($country) {
+                $query->where('country_name', $country);
+            }
+        
+            // Get the filtered users
+            $users = $query->pluck('email')->toArray();
+        
+            // Generate the content for the file
+            $contents = implode("\n", $users);
+        
+            // Save the file to the storage
+            $disk = Storage::disk('local');
+            $storagePath = storage_path('app');
+            $disk->put('users.txt', $contents);
+        
+            // Return the file as a download response
+            return response()->download($storagePath . '/users.txt', 'users.txt');
+        }
+        
     // A Method To Search Users Based on name or email
     public function search(Request $request)
     {
@@ -68,6 +146,15 @@ class UserController extends Controller
             ->paginate(25);
         return view('backend.users.index', compact('users'));
     }
+
+
+    public function destroy(User $user)
+    {
+        $user->delete();
+        return redirect()->back()->with('success', 'User Deleted!');
+    }
+
+
 
     public function deleteUser($id)
     {
@@ -98,7 +185,9 @@ class UserController extends Controller
         $user->note = $request->user_note;
         $user->save();
 
-        return redirect()->route('admin.user.index')->with('success', 'Note saved!');
+        // return redirect()->route('patbd.user.index')->with('success', 'Note saved!');
+
+        return redirect()->back()->with('success', 'Note saved!');
 
     }
 

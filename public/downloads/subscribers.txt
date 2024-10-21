@@ -1,5 +1,5 @@
 prince@gmail.com
-admin@example.com
+patbd@example.com
 random@gmail.com
 random2@gmail.com
 vendor@gmail.com

@@ -2,7 +2,7 @@
     <!-- Carousol Section -->
     <section>
         <!-- Carousel wrapper -->
-        <div id="carouselBasicExample" class="carousel slide carousel-fade" data-mdb-ride="carousel">
+        <div id="carouselBasicExample" id='hero-section' class="carousel slide carousel-fade" data-mdb-ride="carousel">
             {{-- <!-- Indicators -->
             <div class="carousel-indicators">
                 <button type="button" data-mdb-target="#carouselBasicExample" data-mdb-slide-to="0" class="active"
@@ -47,23 +47,42 @@
         <!-- Carousel wrapper -->
     </section>
     <!-- Carousol Section -->
-
     <section id="clients" class="clients section-bg">
         <div class="container d-md-block">
             <div class="row">
-            <div class="col-lg-4 col-md-4 col-4 align-items-center justify-content-center">
-            <div><img src="{{ asset('img/icon-professional2.png'); }}" class="img-fluid" alt><h5>PROFESSIONAL</h5>
-            <h6>Engineer Consultation Team<h6></div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-4 d-flex align-items-center justify-content-center">
-            <div><img src="{{ asset('img/icon-skillfull2.png'); }}" class="img-fluid" alt><h5>SKILLFULL</h5>
-            <h6>Installation Team<h6></div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-4 d-flex align-items-center justify-content-center">
-            <div><img src="{{asset('img/icon-high-experence4.png');}}" class="img-fluid" alt><h5>HIGH EXPERIENCE</h5>
-            <h6>After-Sale Service and Maintenance Team<h6></div>
-            </div>
+                <div class="col-lg-4 col-md-4 col-4 align-items-center justify-content-center">
+                    <div>
+                        <img src="{{ asset('img/icon-professional2.png') }}" class="img-fluid" alt>
+                        <h5 class="client-text">PROFESSIONAL</h5>
+                        
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-4 d-flex align-items-center justify-content-center">
+                    <div>
+                        <img src="{{ asset('img/icon-skillfull2.png') }}" class="img-fluid" alt>
+                        <h5 class="client-text">SKILLFULL</h5>
+                        
+                        <h6 class="client-text" style="visibility: hidden;">&nbsp;</h6>
+                        <h6 class="client-text" style="visibility: hidden;">&nbsp;</h6>
+                     
+                        <h6 class="client-text" style="visibility: hidden;">&nbsp;</h6>
+                     
+                        
+                        
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-4 d-flex align-items-center justify-content-center">
+                    <div>
+                        <img src="{{ asset('img/icon-high-experence4.png') }}" class="img-fluid" alt>
+                        <h5 class="client-text">HIGH EXPERIENCE</h5>
+                        <h6 class="client-text" style="visibility: hidden;">&nbsp;</h6>
+                        <h6 class="client-text" style="visibility: hidden;">&nbsp;</h6>
+                        
+                        
+                    </div>
+                </div>
             </div>
         </div>
     </section>
+    
 </div>

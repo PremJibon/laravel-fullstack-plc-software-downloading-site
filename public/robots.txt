@@ -1,6 +1,6 @@
 User-agent: *
 Disallow: 
 Disallow: /cgi-bin/
-Disallow: /admin/
+Disallow: /patbd/
 Disallow: /img/
 Sitemap: https://www.unlockplcexpert.com/sitemap.xml

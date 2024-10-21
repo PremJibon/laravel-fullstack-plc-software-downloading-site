@@ -40,7 +40,7 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-        'admin' => [
+        'patbd' => [
             'driver' => 'session',
             'provider' => 'admins',
         ],

@@ -12,7 +12,7 @@
                     <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
                         <div class="col-auto">
                             <form class="table-search-form row gx-1 align-items-center" method="get"
-                                action="{{ route('admin.blog.search') }}">
+                                action="{{ route('patbd.blog.search') }}">
                                 @csrf
                                 <div class="col-auto">
                                     <input type="text" id="search-orders" name="search"
@@ -33,7 +33,7 @@
                             </select>
                         </div>
                         <div class="col-auto">
-                            <a class="btn app-btn-primary" href="{{ route('admin.blog.create') }}">
+                            <a class="btn app-btn-primary" href="{{ route('patbd.blog.create') }}">
                                 <i class="bi bi-plus-square"></i>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                     class="bi bi-plus-square me-1" viewBox="0 0 16 16">
@@ -88,8 +88,8 @@
                                             </th>
                                             <td class="cell">
                                                 <a class="btn app-btn-info"
-                                                    href="{{ route('admin.blog.edit', ['blog' => $blog->slug]) }}">Edit</a>
-                                                <form action="{{ route('admin.blog.destroy', ['blog' => $blog->slug]) }}"
+                                                    href="{{ route('patbd.blog.edit', ['blog' => $blog->slug]) }}">Edit</a>
+                                                <form action="{{ route('patbd.blog.destroy', ['blog' => $blog->slug]) }}"
                                                     class="d-inline-block" method="post">
                                                     @method('delete')
                                                     @csrf

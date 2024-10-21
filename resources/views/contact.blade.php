@@ -61,7 +61,7 @@
                       <label for="ContactMobile" class="form-label">Mobile number</label>
                       <div class="mb-3 contact-mobile">
                         <div class="form-field-infix">
-                            <input type="text" id="ContactMobile" name="mobile" value="" class="w-full"/>
+                            <input type="text" id="ContactMobile" name="mobile" value="" class="w-full" maxlength="11"/>
                             <input type="hidden" id="dialcode" value="" name="dial_code" />
                             <input type="hidden" id="country_short_name" value="" name="country_short_name"/>
                             <input type="hidden" id="country_name" value=""  name="country_name"/>

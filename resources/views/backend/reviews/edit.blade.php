@@ -11,7 +11,7 @@
                 <div class="app-auth-body ">
                     <h2 class="auth-heading text-center mb-5">Update Review</h2>
                     <div class="auth-form-container text-start">
-                        <form class="auth-form login-form" action="{{ route('admin.reviews.update', ['review' => $review->id]) }}" method="POST"
+                        <form class="auth-form login-form" action="{{ route('patbd.reviews.update', ['review' => $review->id]) }}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3">

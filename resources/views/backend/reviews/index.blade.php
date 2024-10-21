@@ -12,7 +12,7 @@
                     <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
                         <div class="col-auto">
                             <form class="table-search-form row gx-1 align-items-center" method="get"
-                                action="{{ route('admin.blog.search') }}">
+                                action="{{ route('patbd.blog.search') }}">
                                 @csrf
                                 <div class="col-auto">
                                     <input type="text" id="search-orders" name="search"
@@ -33,7 +33,7 @@
                             </select>
                         </div>
                         <div class="col-auto">
-                            <a class="btn app-btn-primary" href="{{ route('admin.reviews.create') }}">
+                            <a class="btn app-btn-primary" href="{{ route('patbd.reviews.create') }}">
                                 <i class="bi bi-plus-square"></i>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                     class="bi bi-plus-square me-1" viewBox="0 0 16 16">
@@ -91,8 +91,8 @@
 
                                             <td class="cell">
                                                 <a class="btn app-btn-info"
-                                                    href="{{ route('admin.reviews.edit', ['review' => $review->id]) }}">Edit</a>
-                                                <form id="deleteReviewForm_{{ $review->id }}" action="{{ route('admin.reviews.destroy', ['review' => $review->id]) }}"
+                                                    href="{{ route('patbd.reviews.edit', ['review' => $review->id]) }}">Edit</a>
+                                                <form id="deleteReviewForm_{{ $review->id }}" action="{{ route('patbd.reviews.destroy', ['review' => $review->id]) }}"
                                                     class="d-inline-block" method="POST">
                                                     @method('delete')
                                                     @csrf
@@ -141,7 +141,7 @@
 <script>
     function deleteReview(review_id){
         if(confirm('are you sure?') == true){
-            document.getElementById( 'deleteReviewForm' + review_id ).submit();
+            document.getElementById( 'deleteReviewForm_' + review_id ).submit();
         }else{
             return false;
         }

@@ -146,7 +146,7 @@ class HomeController extends Controller
 
         // increment views by one each time a vistior visit the blog
         $blog->increment('views');
-        $reviews = Review::where('blog_id', $blog->id)->where('approved', 1)->paginate(2);
+        $reviews = Review::where('blog_id', $blog->id)->where('approved', 1)->paginate(5);
         return view( 'blog', compact( 'blog', 'reviews', 'total_reviews', 'average_rating', 'all_percentages'  ) );
     }
 
@@ -289,11 +289,11 @@ class HomeController extends Controller
         return redirect()->route('login');
     }
 
-    public function allUsers(Request $request)
+    public function allClients(Request $request)
     {
         $users = User::orderBy('id', 'desc')->get();
         // return response()->json($users);
-        return view('allUsers', compact('users'));
+        return view('allClients', compact('users'));
     }
 
 

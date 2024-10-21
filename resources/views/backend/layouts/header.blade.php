@@ -155,11 +155,11 @@
                             <ul class="dropdown-menu" aria-labelledby="user-dropdown-toggle">
                                 {{-- <li><a class="dropdown-item" href="account.html">Account</a></li>
                                 <li><a class="dropdown-item" href="settings.html">Settings</a></li> --}}
-                                <li><a class="dropdown-item" href="{{ route('admin.passwordReset') }}">Reset Password</a></li>
+                                <li><a class="dropdown-item" href="{{ route('patbd.passwordReset') }}">Reset Password</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="{{ route('admin.logout') }}">Log Out</a></li>
+                                <li><a class="dropdown-item" href="{{ route('patbd.logout') }}">Log Out</a></li>
                             </ul>
                         </div><!--//app-user-dropdown-->
 
@@ -174,7 +174,7 @@
         <div class="sidepanel-inner d-flex flex-column">
             <a href="#" id="sidepanel-close" class="sidepanel-close d-xl-none">&times;</a>
             <div class="app-branding">
-                <a class="app-logo" href="{{ route('admin.index') }}"><img class="logo-icon me-2"
+                <a class="app-logo" href="{{ route('patbd.index') }}"><img class="logo-icon me-2"
                         src="/backend/assets/images/app-logo.svg" alt="logo"><span
                         class="logo-text">PORTAL</span></a>
 
@@ -186,7 +186,7 @@
                     <ul class="app-menu footer-menu list-unstyled">
                         <li class="nav-item">
                             <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                            <a class="nav-link" href="{{ route('admin.settings.general') }}">
+                            <a class="nav-link" href="{{ route('patbd.settings.general') }}">
                                 <span class="nav-icon">
                                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-gear"
                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -202,7 +202,7 @@
                         <li class="nav-item">
                             <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
                             <a class="nav-link"
-                                href="{{ route('admin.slider.index') }}">
+                                href="{{ route('patbd.slider.index') }}">
                                 <span class="nav-icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-images" viewBox="0 0 16 16">
                                     <path d="M4.502 9a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3"/>
@@ -215,7 +215,7 @@
                         <li class="nav-item">
                             <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
                             <a class="nav-link"
-                                href="{{ route('admin.brand.index') }}">
+                                href="{{ route('patbd.brand.index') }}">
                                 <span class="nav-icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-app-indicator" viewBox="0 0 16 16">
                                     <path d="M5.5 2A3.5 3.5 0 0 0 2 5.5v5A3.5 3.5 0 0 0 5.5 14h5a3.5 3.5 0 0 0 3.5-3.5V8a.5.5 0 0 1 1 0v2.5a4.5 4.5 0 0 1-4.5 4.5h-5A4.5 4.5 0 0 1 1 10.5v-5A4.5 4.5 0 0 1 5.5 1H8a.5.5 0 0 1 0 1z"/>

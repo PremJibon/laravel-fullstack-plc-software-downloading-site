@@ -23,7 +23,7 @@
                     </div>
                     <div class="card-body">
                         <form
-                            action="{{ route('admin.social.update', ['social_link' => $social_links['facebook']->slug]) }}"
+                            action="{{ route('patbd.social.update', ['social_link' => $social_links['facebook']->slug]) }}"
                             method="POST">
                             @csrf
                             @method('put')
@@ -54,7 +54,7 @@
                         <h5 class="mb-0">Twitter</h5>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('admin.social.update', ['social_link' => $social_links['twitter']->slug]) }}"
+                        <form action="{{ route('patbd.social.update', ['social_link' => $social_links['twitter']->slug]) }}"
                             method="POST">
                             @csrf
                             @method('put')
@@ -86,7 +86,7 @@
                     </div>
                     <div class="card-body">
                         <form
-                            action="{{ route('admin.social.update', ['social_link' => $social_links['instagram']->slug]) }}"
+                            action="{{ route('patbd.social.update', ['social_link' => $social_links['instagram']->slug]) }}"
                             method="POST">
                             @csrf
                             @method('put')
@@ -118,7 +118,7 @@
                     </div>
                     <div class="card-body">
                         <form
-                            action="{{ route('admin.social.update', ['social_link' => $social_links['linkedin']->slug]) }}"
+                            action="{{ route('patbd.social.update', ['social_link' => $social_links['linkedin']->slug]) }}"
                             method="POST">
                             @csrf
                             @method('put')
@@ -151,7 +151,7 @@
                     </div>
                     <div class="card-body">
                         <form
-                            action="{{ route('admin.social.update', ['social_link' => $social_links['youtube']->slug]) }}"
+                            action="{{ route('patbd.social.update', ['social_link' => $social_links['youtube']->slug]) }}"
                             method="POST">
                             @csrf
                             @method('put')
@@ -183,7 +183,7 @@
                     </div>
                     <div class="card-body">
                         <form
-                            action="{{ route('admin.social.update', ['social_link' => $social_links['discord']->slug]) }}"
+                            action="{{ route('patbd.social.update', ['social_link' => $social_links['discord']->slug]) }}"
                             method="POST">
                             @csrf
                             @method('put')
@@ -215,7 +215,7 @@
                     </div>
                     <div class="card-body">
                         <form
-                            action="{{ route('admin.social.update', ['social_link' => $social_links['github']->slug]) }}"
+                            action="{{ route('patbd.social.update', ['social_link' => $social_links['github']->slug]) }}"
                             method="POST">
                             @csrf
                             @method('put')
@@ -247,7 +247,7 @@
                     </div>
                     <div class="card-body">
                         <form
-                            action="{{ route('admin.social.update', ['social_link' => $social_links['google']->slug]) }}"
+                            action="{{ route('patbd.social.update', ['social_link' => $social_links['google']->slug]) }}"
                             method="POST">
                             @csrf
                             @method('put')

@@ -15,11 +15,31 @@ class SubscriberController extends Controller
      *
      * @return view
      */
-    public function index()
+    public function index(Request $request)
     {
-        $subscribers = Subscriber::paginate(25);
+        $dateRange = $request->query('dateRange');
+    
+        $query = Subscriber::query();
+        if ($dateRange) {
+            $now = now();
+            switch ($dateRange) {
+                case 'daily':
+                    $query->where('created_at', '>=', $now->subDay());
+                    break;
+                case 'weekly':
+                    $query->where('created_at', '>=', $now->subWeek());
+                    break;
+                case 'monthly':
+                    $query->where('created_at', '>=', $now->subMonth());
+                    break;
+                case 'yearly':
+                    $query->where('created_at', '>=', $now->subYear());
+                    break;
+            }
+        }
+        $subscribers = $query->paginate(25)->appends(request()->query());
         // return response()->json($subscribers);
-        return view('backend.subscribers.index', compact('subscribers'));
+        return view('backend.subscribers.index', compact('subscribers','dateRange'));
     }
 
 
@@ -70,7 +90,7 @@ class SubscriberController extends Controller
     /** A Method to Download The List of Subscribers as txt file
      * @return response
      */
-    public function download()
+    public function download(Request $request)
     {
         // $subscribers = Subscriber::all()->pluck('email')->toArray();
         // $file_name = 'subscribers.txt';
@@ -85,18 +105,43 @@ class SubscriberController extends Controller
         //     fwrite($file, $subscriber . "\n");
         // }
         // fclose($file);
+        $dateRange = $request->query('dateRange');
 
         // return response()->download($destinationPath . "/" . $file_name);
+        $query = Subscriber::query();
+        
+            // Apply the date range filter if provided
+            if ($dateRange) {
+                $now = now();
+                switch ($dateRange) {
+                    case 'daily':
+                        $query->where('created_at', '>=', $now->subDay());
+                        break;
+                    case 'weekly':
+                        $query->where('created_at', '>=', $now->subWeek());
+                        break;
+                    case 'monthly':
+                        $query->where('created_at', '>=', $now->subMonth());
+                        break;
+                    case 'yearly':
+                        $query->where('created_at', '>=', $now->subYear());
+                        break;
+                }
+            }
 
-        $subscribers = Subscriber::all()->pluck('email')->toArray();
-
-        $disk = Storage::disk('local'); // Specify disk (change to relevant disk if needed)
-        $storagePath = storage_path('app'); // Get the path to storage folder
-        $contents = implode("\n", $subscribers); // Create string with emails separated by newlines
-
-        $disk->put('subscribers.txt', $contents); // Use putFile() for file-like object
-
-        return response()->download($storagePath . '/subscribers.txt', 'subscribers.txt');
+        
+        $subscribers = $query->pluck('email')->toArray();
+        
+            // Generate the content for the file
+            $contents = implode("\n", $subscribers);
+        
+            // Save the file to the storage
+            $disk = Storage::disk('local');
+            $storagePath = storage_path('app');
+            $disk->put('subscribers.txt', $contents);
+        
+            // Return the file as a download response
+            return response()->download($storagePath . '/subscribers.txt', 'subscribers.txt');
     }
 
 
@@ -117,7 +162,12 @@ class SubscriberController extends Controller
         }
     }
 
-
+    
+    public function destroy(Subscriber $subscriber)
+    {
+        $subscriber->delete();
+        return redirect()->route('patbd.subscriber.index')->with('success', 'Subscriber deleted!');
+    }
 
 
 

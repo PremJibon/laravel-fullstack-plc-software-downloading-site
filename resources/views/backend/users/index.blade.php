@@ -2,9 +2,6 @@
 
 @section('content')
 
-    <!-- dataTable css  -->
-    <!-- <link rel="stylesheet" href="/css/select.dataTables.css"> -->
-
     <div class="container-xl">
 
         <div class="row g-3 mb-4 align-items-center justify-content-between">
@@ -15,11 +12,11 @@
                 <div class="page-utilities">
                     <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
                         <div class="col-auto">
-                            <a href="{{ route('admin.user.download') }}" class="btn btn-success text-white">Download
+                            <a id="downloadBtn" class="btn btn-success text-white">Download
                                 as TXT</a>
                         </div>
                         {{-- <div class="col-auto">
-                            <a class="btn app-btn-primary" href="{{ route('admin.user.create') }}">
+                            <a class="btn app-btn-primary" href="{{ route('patbd.user.create') }}">
                                 <i class="bi bi-plus-square"></i>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                     class="bi bi-plus-square me-1" viewBox="0 0 16 16">
@@ -59,24 +56,28 @@
                             <div id="filters">
                                 <label for="dateRange">Date Range:</label>
                                 <select id="dateRange">
-                                    <option value="">All</option>
-                                    <option value="daily">Daily</option>
-                                    <option value="weekly">Weekly</option>
-                                    <option value="monthly">Monthly</option>
-                                    <option value="yearly">Yearly</option>
+                                    <option value="" >All</option>
+                                    <option value="daily" {{  $dateRange == 'daily' ? 'selected': ''; }}>Daily</option>
+                                    <option value="weekly" {{  $dateRange == 'weekly' ? 'selected': ''; }}>Weekly</option>
+                                    <option value="monthly" {{  $dateRange == 'monthly' ? 'selected': ''; }}>Monthly</option>
+                                    <option value="yearly" {{  $dateRange == 'yearly' ? 'selected': ''; }}>Yearly</option>
                                 </select>
                             
                                 <label for="countryFilter">Country:</label>
                                 <select id="countryFilter">
                                     <option value="">All</option>
                                     @php
-                                    $all_countries = [];
-                                    foreach ($users as $user_key=>$user){
-                                        if( !in_array($user->country_name, $all_countries) ){
+                                    $all_countries_array = [];
+                                    foreach ($all_countries as $single_country){
+                                        if( $single_country != '' && !in_array($single_country, $all_countries_array) ){
+                                            $selected = '';
+                                            if($single_country == $country){
+                                                $selected = 'selected';
+                                            }
                                     @endphp
-                                        <option value="{{ $user->country_name }}">{{ $user->country_name }}</option>
+                                        <option value="{{ $single_country }}" {{ $selected; }}>{{ $single_country }}</option>
                                     @php
-                                            array_push($all_countries, $user->country_name);
+                                            array_push($all_countries_array, $single_country);
                                         }
                                     }
                                     @endphp
@@ -88,10 +89,11 @@
 
 
                             </div>
-                            <table id="user_table" class="display">
+                            <table id="user_table" class="table app-table-hover mb-0 text-left">
                                 <thead>
                                     <tr>
-                                        <th></th>
+                                  
+                                        <th><input type="checkbox" id="select_all"></th>
                                         <th>ID</th>
                                         <th>Name</th>
                                         <th>Email</th>
@@ -103,6 +105,56 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ($users as $user)
+                                        <tr>
+                                            <td><input type="checkbox" name="select_row[]" class='select_row' value="{{ $user->id }}"></td>
+                                            <td>{{ $user->id }}</td>
+                                            <td>{{ $user->name }}</td>
+                                            <td>{{ $user->email }}</td>
+                                            <td>{{ $user->country_name }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($user->created_at)->format('F d, Y h:i A') }}</td>
+                                            <td>
+                                                @if($user->dial_code && $user->mobile)
+                                                    <div class="contact-container">
+                                                        {{-- <a href="https://api.whatsapp.com/send/?phone={{ $user->dial_code . $user->mobile }}" target="_blank" class="contact-link">
+                                                        {{ $user->dial_code . $user->mobile }}
+                                                        </a> --}}
+                                                        
+                                                        <a id='number_link' href="https://api.whatsapp.com/send/?phone={{ $user->dial_code . $user->mobile }}" 
+                                                            target="_blank" class="contact-link">
+                                                             {{ $user->dial_code . $user->mobile }}
+                                                         </a>
+                                                         
+                                                        
+                                                        <div class="contact-options">
+                                                            <a href="weixin://dl/chat?{{ $user->dial_code . $user->mobile }}" target="_blank">WeChat</a>
+                                                            <a href="https://t.me/{{ $user->dial_code . $user->mobile }}" target="_blank">Telegram</a>
+                                                            <a href="https://wa.me/{{ $user->dial_code . $user->mobile }}" target="_blank">WhatsApp</a>
+                                                        </div>
+                                                    </div>
+                                                @elseif($user->mobile)
+                                                    <a href="tel:{{ $user->mobile }}">{{ $user->mobile }}</a>
+                                                @endif
+                                            </td>
+                                            <td >
+                                                <!-- <button onclick="deleteUser({{ $user->id }})" class="btn btn-danger" style="cursor: pointer">Delete</button> -->
+                                                <form id="deleteReviewForm_{{ $user->id }}" action="{{ route('patbd.user.destroy', ['user' => $user->id]) }}"
+                                                    class="d-inline-block" method="POST">
+                                                    @method('delete')
+                                                    @csrf
+                                                    <button type="submit" onclick="deleteUser({{ $user->id }}); return false;" class="btn app-btn-danger">Delete</button>
+                                                </form>
+                                            </td>
+                                            <td>
+                                                <form class="auth-form login-form d-flex flex-wrap justify-content-center align-items-center" action="{{ route('patbd.user.addNote') }}" method="POST">
+                                                    @csrf
+                                                    <textarea name="user_note"  minlength="10" maxlength="250" required>{{ $user->note }}</textarea>
+                                                    <input type="hidden" name="user_id" value="{{ $user->id }}" />
+                                                    <button type="submit" class="btn btn-success text-white">Save</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -111,7 +163,7 @@
                 </div><!--//app-card-->
                 <nav class="app-pagination">
                     <div class="mx-auto">
-                        {{-- {{ $users->links() }} --}}
+                        {{ $users->appends(request()->query())->links() }}
                     </div>
                     {{-- <ul class="pagination justify-content-center">
                         <li class="page-item disabled">
@@ -167,188 +219,51 @@
     <!-- jquery js  -->
     <script type="text/javascript" src="/js/jquery-3.7.1.min.js"></script>
 
-    <!-- datatable js  -->
-    <script src="/js/dataTables.js"></script>
-
-    <!-- datatable select js  -->
-    <script src="/js/dataTables.select.js"></script>
-
 
     <script>
 
-          // Define deleteUser function in the global scope
-            function deleteUser(userId) {
-
-                var csrfToken = $('meta[name="csrf-token"]').attr('content');
-               
-                if (confirm("are you sure you want to delete this user?") == true) {
-                    //text = "You pressed OK!";
-                    //console.log("🚀 ~ deleteUser ~ userId:", userId);
-
-                    $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'), // For CSRF protection
-                        'Authorization': 'Bearer ' + csrfToken // Include the token in the Authorization header
-                    }
-                });
-
-                    $.ajax({
-                        url: "/api/delete_user/" + userId, // Replace with your API endpoint
-                        method: "DELETE", // Use "DELETE" method for deletion
-                        contentType: "application/json",
-                        success: function(response) {
-                            // Handle the successful response from the API here
-                            if(response.success === true){
-                                alert('User deleted successfully!');
-                                // Optionally, you can refresh the table or remove the deleted row from the UI
-                                $('#user_table').DataTable().ajax.reload();
-                            }
-                        },
-                        error: function(xhr, status, error) {
-                            alert('Something went wrong!');
-                        }
-                    });
-
-                } else {
-                    console.log("nothing to do");
-                }
+        // Define deleteUser function in the global scope
+        function deleteUser(userId) {
+            if (confirm("are you sure you want to delete this user?") == true) {
+                document.getElementById( 'deleteReviewForm_' + userId ).submit();
+            }else{
+                return false;
             }
+        }
 
-
-        $(document).ready(function () {
-
-            var csrfToken = $('meta[name="csrf-token"]').attr('content');
-
-            var table = $('#user_table').DataTable({
-                ajax: {
-                    url: 'http://localhost:8000/api/get_user',
-                    dataSrc: '',
-                    beforeSend: function (xhr) {
-                        xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
-                    }
-                },
-                columns: [
-                    { 
-                        data: 'id',
-                        orderable: false,
-                        className: 'select-checkbox',
-                        render: DataTable.render.select()
-                    },
-                    { 
-                        data: 'id',
-                        className: 'user_id'
-                    },
-                    { data: 'name' },
-                    { data: 'email' },
-                    { data: 'country_name' },
-                    {
-                        data: 'created_at',
-                        render: function (data, type, row) {
-                            var date = new Date(data);
-                            var options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
-                            return date.toLocaleDateString('en-US', options);
-                            //return data;
-                        }
-                    },
-                    {
-                        data: 'mobile',
-                        render: function (data, type, row) {
-                            if (row.dial_code && data) {
-                                var fullNumber = row.dial_code + data;
-                                return '<a href="https://api.whatsapp.com/send/?phone='+ fullNumber + '&text&type=phone_number&app_absent=0" target="_blank">' + fullNumber + '</a>';
-                            } else if (data) {
-                                return '<a href="tel:' + data + '">' + data + '</a>';
-                            } else {
-                                return '';
-                            }
-                        }
-                    },
-                    {
-                        data: 'action',
-                        render: function (data, type, row) {
-                            return '<span onclick="deleteUser('+ row.id + ')" style="cursor: pointer">Delete</span>';
-                        }
-                    },
-                    { 
-                        data: 'note', 
-                        render: function (data, type, row) {
-                            return `
-                                    <form class="auth-form login-form" action="{{ route('admin.user.addNote') }}" method="POST" >
-                                        @csrf
-                                        <textarea name="user_note" minlength="10" maxlength="250">`+data+`</textarea>
-                                        <input type="hidden" name="user_id" value="${row.id}" />
-                                        <button type="submit" class="btn btn-success text-white" > Save </button>
-                                    </form>
-                                    `;
-                        }
-                    },
-                    { 
-                        data: 'created_at', 
-                        visible: false  // Hide the original date column
-                    },
-                   
-                ],
-                'columnDefs': [
-                    {
-                        'targets': 0,
-                        'checkboxes': {
-                            'selectRow': true
-                        }
-                    }
-                ],
-                'select': {
-                    'style': 'multi',
-                    'selector': 'td:first-child'
-                },
-                deferRender: true,
-                order: [[0, 'desc']]  // Default sort by the first column (id) in descending order
-            });
-    
-            // Custom filtering function
-            $.fn.dataTable.ext.search.push(
-                function(settings, data, dataIndex) {
+            
+            $(document).ready(function () {
+                $('#downloadBtn').click(function (e) {
+                    e.preventDefault();
                     
+                    // Get the filter values
                     var dateRange = $('#dateRange').val();
                     var country = $('#countryFilter').val();
-                    var createdAt = new Date(data[9]); // Assuming 'created_at' is the 9th column
-    
-                    if (dateRange) {
-                        var now = new Date();
-                        switch (dateRange) {
-                            case 'daily':
-                                var dayAgo = new Date();
-                                dayAgo.setDate(dayAgo.getDate() - 1);
-                                if (createdAt < dayAgo || createdAt > now) return false;
-                                break;
-                            case 'weekly':
-                                var weekAgo = new Date();
-                                weekAgo.setDate(weekAgo.getDate() - 7);
-                                if (createdAt < weekAgo || createdAt > now) return false;
-                                break;
-                            case 'monthly':
-                                var monthAgo = new Date();
-                                monthAgo.setMonth(monthAgo.getMonth() - 1);
-                                if (createdAt < monthAgo || createdAt > now) return false;
-                                break;
-                            case 'yearly':
-                                var yearAgo = new Date();
-                                yearAgo.setFullYear(yearAgo.getFullYear() - 1);
-                                if (createdAt < yearAgo || createdAt > now) return false;
-                                break;
-                        }
-                    }
-    
-                    if (country && data[4] !== country) { // Assuming 'country_name' is the 4th column
-                        return false;
-                    }
-    
-                    return true;
-                }
-            );
-    
+                    
+                    // Construct the download URL with filters as query parameters
+                    var downloadUrl = "{{ route('patbd.user.download') }}";
+                    downloadUrl += '?dateRange=' + dateRange + '&country=' + country;
+
+                    // Redirect to the download URL
+                    window.location.href = downloadUrl;
+                });
+            });
+
+
+  
             // Event listeners for the filters
-            $('#dateRange, #countryFilter').change(function() {
-                table.draw();
+            $('#dateRange, #countryFilter').change(function(e) {
+                e.preventDefault();
+                // Get the filter values
+                var dateRange = $('#dateRange').val();
+                var country = $('#countryFilter').val();
+                
+                // Construct the download URL with filters as query parameters
+                var downloadUrl = "{{ route('patbd.user.index') }}?dateRange=" + dateRange + "&country=" + country;
+                // var downloadUrl = "{{ route('patbd.user.index') }}?page={{ Request::get('page') }}&dateRange=" + dateRange + "&country=" + country;
+
+                // Redirect to the download URL
+                window.location.href = downloadUrl;
             });
 
 
@@ -362,7 +277,7 @@
                 $("#notification_area").html('');
                 $(".alert .btn-close").click();
                 selected_rows = [];
-                selected_rows = $('#user_table tr.selected .user_id');
+                selected_rows = $('.select_row:checked');
                 if(selected_rows.length == 0){
                     setTimeout(function(){
                         $('#addToManyModalClose').click();
@@ -392,11 +307,11 @@
                 $('#addToManyModalClose').click();
                 all_selected_users = [];
                 for (let i = 0; i < selected_rows.length; i++) {
-                    all_selected_users.push(parseInt(selected_rows[i].innerHTML));
+                    all_selected_users.push(parseInt(selected_rows[i].value));
                 }
-
+                var csrfToken = $('meta[name="csrf-token"]').attr('content');
                 $.ajax({
-                    url: "{{ route('admin.user.addNoteToMany') }}", // Adjust the route syntax here
+                    url: "{{ route('patbd.user.addNoteToMany') }}", // Adjust the route syntax here
                     method: "POST",
                     data: {
                         _token: csrfToken,
@@ -433,8 +348,33 @@
 
             });
 
+            // checked function
+            $('#select_all').on('change', function() {
+                let isChecked = this.checked;
 
-        });
+                // Select or deselect all checkboxes
+                $('.select_row').each(function() {
+                    $(this).prop('checked', isChecked);
+                });
+
+                // Optionally, you can send an AJAX request to process the selected rows
+                let selectedIds = [];
+                if (isChecked) {
+                    $('.select_row').each(function() {
+                        selectedIds.push($(this).val()); // Collect all user IDs
+                    });
+                }
+            });
+
+            $(document).ready(function() {
+    $('#number_link').on('click', function(e) {
+        e.preventDefault(); // Prevent default link behavior
+
+        // Toggle the visibility of the contact-options div
+        $(this).siblings('.contact-options').toggle();
+    });
+});
+
 
 
 

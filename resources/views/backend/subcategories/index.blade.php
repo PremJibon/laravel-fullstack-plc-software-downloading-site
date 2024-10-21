@@ -33,7 +33,7 @@
                             </select>
                         </div>
                         <div class="col-auto">
-                            <a class="btn app-btn-primary" href="{{ route('admin.subcat.create') }}">
+                            <a class="btn app-btn-primary" href="{{ route('patbd.subcat.create') }}">
                                 <i class="bi bi-plus-square"></i>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                     class="bi bi-plus-square me-1" viewBox="0 0 16 16">
@@ -83,9 +83,9 @@
                                             <td class="cell">
                                                 {{-- <a class="btn-sm app-btn-secondary" href="#">View</a> --}}
                                                 <a class="btn-sm app-btn-info"
-                                                    href="{{ route('admin.subcat.edit', ['subcategory' => $subcategory->slug]) }}">Edit</a>
+                                                    href="{{ route('patbd.subcat.edit', ['subcategory' => $subcategory->slug]) }}">Edit</a>
                                                 <form
-                                                    action="{{ route('admin.subcat.destroy', ['subcategory' => $subcategory->slug]) }}"
+                                                    action="{{ route('patbd.subcat.destroy', ['subcategory' => $subcategory->slug]) }}"
                                                     class="d-inline-block" method="post">
                                                     @method('delete')
                                                     @csrf

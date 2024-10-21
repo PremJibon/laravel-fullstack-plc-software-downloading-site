@@ -40,8 +40,8 @@ class Handler extends ExceptionHandler
 
         $guard = data_get($exception->guards(), 0);
         switch ($guard) {
-            case 'admin':
-                $login = 'admin.login';
+            case 'patbd':
+                $login = 'patbd.login';
                 break;
             default:
                 $login = 'login';

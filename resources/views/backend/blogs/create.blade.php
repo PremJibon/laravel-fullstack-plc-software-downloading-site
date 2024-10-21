@@ -11,7 +11,7 @@
                 <div class="app-auth-body ">
                     <h2 class="auth-heading text-center mb-5">Create Blog</h2>
                     <div class="auth-form-container text-start">
-                        <form class="auth-form login-form" action="{{ route('admin.blog.store') }}" method="POST"
+                        <form class="auth-form login-form" action="{{ route('patbd.blog.store') }}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3">

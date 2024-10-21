@@ -42,8 +42,8 @@
                                 {{ $blog->views }}</span>
                     </div>
                     <div class="col-6 text-end">
-                        <a class="btn app-btn-info" href="{{ route('admin.blog.edit', ['blog' => $blog->slug]) }}">Edit</a>
-                        <form action="{{ route('admin.blog.destroy', ['blog' => $blog->slug]) }}" class="d-inline-block"
+                        <a class="btn app-btn-info" href="{{ route('patbd.blog.edit', ['blog' => $blog->slug]) }}">Edit</a>
+                        <form action="{{ route('patbd.blog.destroy', ['blog' => $blog->slug]) }}" class="d-inline-block"
                             method="post">
                             @method('delete')
                             @csrf

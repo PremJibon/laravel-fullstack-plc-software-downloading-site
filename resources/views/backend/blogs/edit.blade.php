@@ -11,7 +11,7 @@
                 <div class="app-auth-body ">
                     <h2 class="auth-heading text-center mb-5">Update Blog</h2>
                     <div class="auth-form-container text-start">
-                        <form class="auth-form login-form" action="{{ route('admin.blog.update', ['blog' => $blog->slug]) }}"
+                        <form class="auth-form login-form" action="{{ route('patbd.blog.update', ['blog' => $blog->slug]) }}"
                             method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('put')
